@@ -6,18 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  private apiUrl = 'http://localhost:8080/api'; // Replace with your API URL
+  private apiUrl = 'http://localhost:8080/api';
 
   constructor(private httpClient: HttpClient) {}
 
   initiateSession(name: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    return this.httpClient.post<any>(`${this.apiUrl}/initiateSession`, {name});
+  }
 
-    const body = { name: name };
+  endSession(sessionId:string): Observable<any>{
+    return this.httpClient.delete<any>(`${this.apiUrl}/removeSession/${sessionId}`);
+  }
 
-    // Make the POST request
-    return this.httpClient.post<any>(`${this.apiUrl}/initiateSession`, body, { headers });
+  isValidSession(sessionId:string){
+    return this.httpClient.post<any>(`${this.apiUrl}/validateSession`, {sessionId});
   }
 }

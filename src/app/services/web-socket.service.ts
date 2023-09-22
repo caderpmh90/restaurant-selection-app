@@ -7,12 +7,9 @@ import * as SockJS from 'sockjs-client';
 export class WebSocketService {
   private socket!: WebSocket;
 
-  constructor() {
-    this.connect();
-  }
 
-  private connect() {
-    const socketUrl = 'http://localhost:8080/websocket'; 
+  connect(handleMessage?:(msg:string)=>any) {
+    const socketUrl = 'http://localhost:8080/websocket';
     this.socket = new SockJS(socketUrl);
 
     this.socket.onopen = (event) => {
@@ -21,7 +18,7 @@ export class WebSocketService {
 
     this.socket.onmessage = (event) => {
       const message = event.data;
-      this.handleMessage(message);
+      handleMessage?handleMessage(message):this.handleMessage(message);
     };
 
     this.socket.onclose = (event) => {

@@ -1,1 +1,6 @@
-<p>chat works!</p>
+<div *ngIf="!isEnded">
+
+  <button (click)="endSession()">End Session</button> <br/><br/>
+  <input type="text" [(ngModel)]="inputContent" placeholder="Enter Suggestion">
+  <button (click)="sendSuggestion()">Send</button>
+</div>
