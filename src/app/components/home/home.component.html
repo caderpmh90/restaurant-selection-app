@@ -1,0 +1,12 @@
+<div>
+  <input type="text" [(ngModel)]="inputContent" placeholder="Enter session content">
+  <button (click)="startSession()">Start</button>
+</div>
+<br/>
+<div *ngIf="url">
+  Share and Click on the link Below to start the session
+  <br/>
+ <a (click)="onLinkClick()"> {{url}}</a>
+
+</div>
+
